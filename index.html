@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stoic.md</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      color: #03c03c;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem; /* safe side margins on mobile */
+      box-sizing: border-box;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 900px;
+      font-size: clamp(15px, 4.5vw, 24px);
+      line-height: 1.8;
+      text-shadow: 0 0 10px rgba(3,192,60,0.6);
+      white-space: pre-wrap;       /* wraps long lines nicely */
+      word-wrap: break-word;        /* emergency break for super long words */
+    }
+
+    .line {
+      opacity: 0;
+      display: block;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.65ch;
+      height: 1.2em;
+      background: #03c03c;
+      animation: blink 1s steps(2) infinite;
+      vertical-align: middle;
+      margin-left: 3px;
+    }
+
+    @keyframes blink {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    body.active .cursor { animation-duration: 0.2s; }
+
+    /* subtle CRT scan lines */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent 0px, rgba(0,0,0,0.04) 1px, transparent 2px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal" id="terminal"></div>
+
+  <script>
+    const script = [
+      "$ whoami",
+      "alex",
+      "",
+      "$ cat purpose.txt",
+      "This domain's purpose is just for me to have a nice email address.",
+      "If you are interested in Web Development and AI Automations,",
+      "you know how to reach me.",
+      "",
+      "alex@stoic.md",
+      "",
+      "$ ",
+      // secret line after ~10 s
+      '$ echo "You shouldn\'t still be here."',
+      'Nothing new will be here.'
+    ];
+
+    const terminal = document.getElementById('terminal');
+    let lineIndex = 0;
+    let charIndex = 0;
+    let currentLine = null;
+    let inactivityTimer = null;
+
+    function type() {
+      if (lineIndex >= script.length) {
+        startInactivityTimer();
+        return;
+      }
+
+      if (charIndex === 0) {
+        currentLine = document.createElement('div');
+        currentLine.className = 'line';
+        terminal.appendChild(currentLine);
+        requestAnimationFrame(() => currentLine.style.opacity = 1);
+      }
+
+      const text = script[lineIndex];
+      currentLine.textContent = text.slice(0, charIndex + 1);
+
+      // cursor only on the actively typing line or final prompt
+      const oldCursor = document.querySelector('.cursor');
+      if (oldCursor) oldCursor.remove();
+      if (charIndex < text.length || lineIndex === 10) {  // 10 = "$ " line
+        currentLine.innerHTML += '<span class="cursor"></span>';
+      }
+
+      charIndex++;
+
+      if (charIndex > text.length) {
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(type, 450);
+      } else {
+        const speed = 40 + Math.random() * 70;
+        setTimeout(type, speed);
+      }
+    }
+
+    function startInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        terminal.appendChild(document.createElement('br'));
+        lineIndex = script.length - 2;
+        charIndex = 0;
+        type();
+      }, 10000);
+    }
+
+    document.body.addEventListener('click', () => {
+      clearTimeout(inactivityTimer);
+      document.body.classList.add('active');
+      setTimeout(() => document.body.classList.remove('active'), 800);
+      startInactivityTimer();
+    });
+
+    // start
+    setTimeout(type, 800);
+  </script>
+</body>
+</html>

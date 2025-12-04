@@ -1,0 +1,2 @@
+# stoic.md
+My domain

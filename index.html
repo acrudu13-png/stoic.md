@@ -1,154 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="/favicon-32x32.png">
-  <title>Lorem Ipsum</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #000;
-      color: #03c03c;
-      font-family: 'Fira Code', 'Cascadia Code', monospace;
-      overflow: hidden;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem; /* safe side margins on mobile */
-      box-sizing: border-box;
-    }
-
-    .terminal {
-      width: 100%;
-      max-width: 900px;
-      font-size: clamp(15px, 4.5vw, 24px);
-      line-height: 1.8;
-      text-shadow: 0 0 10px rgba(3,192,60,0.6);
-      white-space: pre-wrap;       /* wraps long lines nicely */
-      word-wrap: break-word;        /* emergency break for super long words */
-    }
-
-    .line {
-      opacity: 0;
-      display: block;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 0.65ch;
-      height: 1.2em;
-      background: #03c03c;
-      animation: blink 1s steps(2) infinite;
-      vertical-align: middle;
-      margin-left: 3px;
-    }
-
-    @keyframes blink {
-      from { opacity: 1; }
-      to   { opacity: 0; }
-    }
-
-    body.active .cursor { animation-duration: 0.2s; }
-
-    /* subtle CRT scan lines */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(0deg, transparent 0px, rgba(0,0,0,0.04) 1px, transparent 2px);
-      pointer-events: none;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STOIC — Unyielding Architecture. Enforced by AI.</title>
+<meta name="description" content="Stoic deploys hyper-resilient, multi-stack enterprise systems — any stack, any runtime — with absolute structural integrity, enforced by AI. ISO/IEC 27001 certified." />
+<meta property="og:title" content="STOIC — Unyielding Architecture. Enforced by AI." />
+<meta property="og:description" content="Order for enterprise complexity: hyper-resilient systems across any stack, with absolute structural integrity. ISO/IEC 27001 certified." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://stoic.md/" />
+<meta name="theme-color" content="#0a0a0b" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stoic Media SRL",
+  "url": "https://stoic.md",
+  "telephone": "+37369666557",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calea Ieșilor 6A, Artima Business & Lifestyle",
+    "addressLocality": "Chișinău",
+    "addressCountry": "MD"
+  },
+  "sameAs": ["https://www.linkedin.com/in/alexandru-crudu-06a683160/"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0b'/%3E%3Crect x='6' y='6' width='20' height='4' fill='%23b87333'/%3E%3Crect x='6' y='14' width='14' height='4' fill='%23ece9e2'/%3E%3Crect x='6' y='22' width='20' height='4' fill='%23ece9e2'/%3E%3C/svg%3E" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </head>
 <body>
-  <div class="terminal" id="terminal"></div>
 
-  <script>
-    const script = [
-      "$ whoami",
-      "Stoic Media SRL",
-      "",
-      "$ cat purpose.txt",
-      "We build efficient automations for businesses.",
-      "If you are interested in Web Development, AI Automations, Conversational agent",
-      "reach us via email.",
-      "",
-      "alex@stoic.md / sales@aloro.ai",
-      "",
-      "$ ",
-      // secret line after ~10 s
-      '$ echo "Actions speak louder than words."',
-      'We deliver results, not reports.'
-    ];
+<!-- ── NOISE + GRID OVERLAYS ─────────────────────────────── -->
+<div class="noise" aria-hidden="true"></div>
+<div class="gridlines" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
 
-    const terminal = document.getElementById('terminal');
-    let lineIndex = 0;
-    let charIndex = 0;
-    let currentLine = null;
-    let inactivityTimer = null;
+<!-- ── HEADER ────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="wordmark" href="#top" aria-label="Stoic — home">
+      <span class="wordmark-block" aria-hidden="true"></span>
+      STOIC
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#pillars">Pillars</a>
+      <a href="#mandate">Mandate</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#standard">Standard</a>
+      <a href="#protocol">Protocol</a>
+    </nav>
+    <a class="btn btn-solid btn-mini" href="#protocol">Initiate</a>
+  </div>
+</header>
 
-    function type() {
-      if (lineIndex >= script.length) {
-        startInactivityTimer();
-        return;
-      }
+<main id="top">
 
-      if (charIndex === 0) {
-        currentLine = document.createElement('div');
-        currentLine.className = 'line';
-        terminal.appendChild(currentLine);
-        requestAnimationFrame(() => currentLine.style.opacity = 1);
-      }
+<!-- ── 1 · HERO — THE FIRST AXIOM ────────────────────────── -->
+<section class="hero" id="axiom">
+  <div class="shell hero-grid">
 
-      const text = script[lineIndex];
-      currentLine.textContent = text.slice(0, charIndex + 1);
+    <div class="hero-copy reveal">
+      <p class="kicker mono">SEC.01&nbsp;//&nbsp;THE&nbsp;FIRST&nbsp;AXIOM</p>
+      <h1 class="hero-headline">
+        Unyielding<br />Architecture.<br />
+        <span class="accent">Enforced by&nbsp;AI.</span>
+      </h1>
+      <p class="hero-sub">
+        We bring order to enterprise complexity. Stoic deploys
+        hyper&#8209;resilient, multi&#8209;stack systems — Python, .NET, React,
+        or whatever you run — with absolute structural integrity.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#protocol">Initiate Protocol</a>
+        <a class="btn btn-ghost" href="#ecosystem">Inspect the Ecosystem</a>
+      </div>
+      <ul class="hero-meta mono" aria-label="Operating metrics">
+        <li><strong data-count="0">0</strong><span>ARCHITECTURAL&nbsp;DRIFT</span></li>
+        <li><strong>ANY</strong><span>STACK&nbsp;ORCHESTRATED</span></li>
+        <li><strong>ISO&nbsp;27001</strong><span>CERTIFIED&nbsp;SECURITY</span></li>
+      </ul>
+    </div>
 
-      // cursor only on the actively typing line or final prompt
-      const oldCursor = document.querySelector('.cursor');
-      if (oldCursor) oldCursor.remove();
-      if (charIndex < text.length || lineIndex === 10) {  // 10 = "$ " line
-        currentLine.innerHTML += '<span class="cursor"></span>';
-      }
+    <div class="hero-terminal reveal" aria-label="Live cross-stack compilation stream">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="tsq" aria-hidden="true"></span>
+          <span class="tsq" aria-hidden="true"></span>
+          <span class="tsq tsq-live" aria-hidden="true"></span>
+          <span class="terminal-title mono">stoic://convergence — live</span>
+          <span class="terminal-latency mono" id="latency">3ms</span>
+        </div>
+        <pre class="terminal-body mono" id="terminal" aria-live="off"></pre>
+        <div class="terminal-foot mono">
+          <span>PY&nbsp;→&nbsp;NET&nbsp;→&nbsp;TSX</span>
+          <span id="cycle-count">CYCLE&nbsp;0001</span>
+        </div>
+      </div>
+    </div>
 
-      charIndex++;
+  </div>
+</section>
 
-      if (charIndex > text.length) {
-        charIndex = 0;
-        lineIndex++;
-        setTimeout(type, 450);
-      } else {
-        const speed = 40 + Math.random() * 70;
-        setTimeout(type, speed);
-      }
-    }
+<!-- ── TECH TICKER — the register of stacks ──────────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-set">
+      <span>PYTHON</span><i>▪</i><span>.NET</span><i>▪</i><span>REACT</span><i>▪</i><span>ANGULAR</span><i>▪</i><span>JVM</span><i>▪</i><span>GO</span><i>▪</i><span>NODE</span><i>▪</i><span>RUST</span><i>▪</i><span>KUBERNETES</span><i>▪</i><span>TERRAFORM</span><i>▪</i><span>POSTGRESQL</span><i>▪</i><span>KAFKA</span><i>▪</i><span>AZURE</span><i>▪</i><span>AWS</span><i>▪</i>
+    </div>
+    <div class="ticker-set">
+      <span>PYTHON</span><i>▪</i><span>.NET</span><i>▪</i><span>REACT</span><i>▪</i><span>ANGULAR</span><i>▪</i><span>JVM</span><i>▪</i><span>GO</span><i>▪</i><span>NODE</span><i>▪</i><span>RUST</span><i>▪</i><span>KUBERNETES</span><i>▪</i><span>TERRAFORM</span><i>▪</i><span>POSTGRESQL</span><i>▪</i><span>KAFKA</span><i>▪</i><span>AZURE</span><i>▪</i><span>AWS</span><i>▪</i>
+    </div>
+  </div>
+</div>
 
-    function startInactivityTimer() {
-      clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => {
-        terminal.appendChild(document.createElement('br'));
-        lineIndex = script.length - 2;
-        charIndex = 0;
-        type();
-      }, 10000);
-    }
+<!-- ── 2 · FEATURE MATRIX — THE STRUCTURAL PILLARS ───────── -->
+<section class="pillars" id="pillars">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="kicker mono">SEC.02&nbsp;//&nbsp;STRUCTURAL&nbsp;PILLARS</p>
+      <h2>Three loads. One monolith.</h2>
+    </div>
+  </div>
+  <div class="shell pillar-grid">
 
-    document.body.addEventListener('click', () => {
-      clearTimeout(inactivityTimer);
-      document.body.classList.add('active');
-      setTimeout(() => document.body.classList.remove('active'), 800);
-      startInactivityTimer();
-    });
+    <article class="pillar reveal">
+      <p class="pillar-index mono">01&nbsp;—&nbsp;Λ</p>
+      <h3 class="pillar-name">Logos<span class="pillar-sep">:</span><br />Structural Determinism</h3>
+      <p class="pillar-body">
+        AI agents continuously audit codebase convergence — every commit is
+        measured against the canonical architecture. Zero drift. Pure logic,
+        enforced without exception.
+      </p>
+      <p class="pillar-foot mono">AUDIT&nbsp;INTERVAL&nbsp;·&nbsp;CONTINUOUS</p>
+    </article>
 
-    // start
-    setTimeout(type, 800);
-  </script>
+    <article class="pillar reveal">
+      <p class="pillar-index mono">02&nbsp;—&nbsp;Α</p>
+      <h3 class="pillar-name">Agora<span class="pillar-sep">:</span><br />Cross‑Tech Concurrency</h3>
+      <p class="pillar-body">
+        Deep orchestration and seamless data flow across every layer —
+        AI &amp; data planes, core enterprise services, client surfaces.
+        Python to .NET to React today; JVM, Go, or Rust tomorrow.
+        One schema, every runtime, no translation loss.
+      </p>
+      <p class="pillar-foot mono">CONTRACT&nbsp;PARITY&nbsp;·&nbsp;100%</p>
+    </article>
+
+    <article class="pillar reveal">
+      <p class="pillar-index mono">03&nbsp;—&nbsp;Ω</p>
+      <h3 class="pillar-name">Arete<span class="pillar-sep">:</span><br />Velocity Without Debt</h3>
+      <p class="pillar-body">
+        Functional excellence through automated test generation and
+        self‑healing refactoring pipelines. Ship fast — and owe nothing
+        to the future.
+      </p>
+      <p class="pillar-foot mono">TECH&nbsp;DEBT&nbsp;ACCRUAL&nbsp;·&nbsp;0.00</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── 3 · THE MANDATE — what we execute ─────────────────── -->
+<section class="mandate" id="mandate">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="kicker mono">SEC.03&nbsp;//&nbsp;THE&nbsp;MANDATE</p>
+      <h2>What we execute.</h2>
+    </div>
+    <ol class="mandate-list reveal">
+      <li class="mandate-row">
+        <span class="mandate-index mono">OP.01</span>
+        <div class="mandate-main">
+          <h3 class="mandate-name">Greenfield Systems</h3>
+          <p class="mandate-desc">Enterprise platforms built from first principles — architecture before code.</p>
+        </div>
+        <span class="mandate-tag mono">DESIGN&nbsp;→&nbsp;DEPLOY</span>
+      </li>
+      <li class="mandate-row">
+        <span class="mandate-index mono">OP.02</span>
+        <div class="mandate-main">
+          <h3 class="mandate-name">Legacy Modernization</h3>
+          <p class="mandate-desc">Monoliths dissected, contracts extracted, systems rebuilt in place — without stopping the business.</p>
+        </div>
+        <span class="mandate-tag mono">ZERO&nbsp;DOWNTIME</span>
+      </li>
+      <li class="mandate-row">
+        <span class="mandate-index mono">OP.03</span>
+        <div class="mandate-main">
+          <h3 class="mandate-name">AI Enforcement Layers</h3>
+          <p class="mandate-desc">Agent pipelines that audit, test, and refactor your codebase — continuously, not quarterly.</p>
+        </div>
+        <span class="mandate-tag mono">24/7&nbsp;AUDIT</span>
+      </li>
+      <li class="mandate-row">
+        <span class="mandate-index mono">OP.04</span>
+        <div class="mandate-main">
+          <h3 class="mandate-name">Cross-Stack Orchestration</h3>
+          <p class="mandate-desc">One schema across every runtime you operate — adapters generated, drift rejected.</p>
+        </div>
+        <span class="mandate-tag mono">ANY&nbsp;STACK</span>
+      </li>
+      <li class="mandate-row">
+        <span class="mandate-index mono">OP.05</span>
+        <div class="mandate-main">
+          <h3 class="mandate-name">Architecture Audits</h3>
+          <p class="mandate-desc">A forensic read of your system's structural integrity, delivered as an execution plan.</p>
+        </div>
+        <span class="mandate-tag mono">FIXED&nbsp;SCOPE</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 4 · TECH INTERACTION WORKSPACE — THE ECOSYSTEM ────── -->
+<section class="ecosystem" id="ecosystem">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="kicker mono">SEC.04&nbsp;//&nbsp;THE&nbsp;ECOSYSTEM</p>
+      <h2>Deterministic pipelines.<br />Proven on contact.</h2>
+      <p class="section-sub">Shown: one topology of many. Engage a node to trace its orchestration
+      paths through the Stoic core — the discipline holds for any stack.</p>
+    </div>
+
+    <div class="eco-frame reveal">
+      <svg id="eco-svg" viewBox="0 0 1000 520" role="img"
+           aria-label="Interactive diagram of Python, .NET, React and Angular orchestrated through the Stoic core">
+        <!-- pipelines -->
+        <g class="pipes">
+          <path id="pipe-python" class="pipe" data-nodes="python core" d="M 240 130 H 350 V 232 H 412" />
+          <path id="pipe-dotnet" class="pipe" data-nodes="dotnet core" d="M 240 390 H 350 V 288 H 412" />
+          <path id="pipe-react"  class="pipe" data-nodes="core react"  d="M 588 232 H 650 V 130 H 760" />
+          <path id="pipe-angular" class="pipe" data-nodes="core angular" d="M 588 288 H 650 V 390 H 760" />
+          <path id="pipe-any" class="pipe pipe-dashed" data-nodes="core anystack" d="M 500 324 V 376" />
+        </g>
+        <!-- pipeline labels -->
+        <g class="pipe-labels mono">
+          <text x="262" y="120" data-nodes="python core">gRPC / PROTOBUF</text>
+          <text x="262" y="414" data-nodes="dotnet core">REST / OPENAPI</text>
+          <text x="738" y="120" data-nodes="core react" text-anchor="end">TYPED SDK / TSX</text>
+          <text x="738" y="414" data-nodes="core angular" text-anchor="end">SIGNALR / RXJS</text>
+          <text x="514" y="356" data-nodes="core anystack">ANY PROTOCOL</text>
+        </g>
+        <!-- data packets -->
+        <g class="packets" aria-hidden="true">
+          <rect class="packet" data-pipe="pipe-python" width="7" height="7" x="-3.5" y="-3.5">
+            <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#pipe-python"/></animateMotion>
+          </rect>
+          <rect class="packet" data-pipe="pipe-dotnet" width="7" height="7" x="-3.5" y="-3.5">
+            <animateMotion dur="3.1s" repeatCount="indefinite"><mpath href="#pipe-dotnet"/></animateMotion>
+          </rect>
+          <rect class="packet" data-pipe="pipe-react" width="7" height="7" x="-3.5" y="-3.5">
+            <animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#pipe-react"/></animateMotion>
+          </rect>
+          <rect class="packet" data-pipe="pipe-angular" width="7" height="7" x="-3.5" y="-3.5">
+            <animateMotion dur="2.9s" repeatCount="indefinite"><mpath href="#pipe-angular"/></animateMotion>
+          </rect>
+        </g>
+        <!-- nodes -->
+        <g class="node" data-node="python" tabindex="0" role="button" aria-label="Python node">
+          <rect x="80" y="90" width="160" height="80" />
+          <text class="node-name" x="100" y="126">PYTHON</text>
+          <text class="node-role mono" x="100" y="150">AI / DATA PLANE</text>
+        </g>
+        <g class="node" data-node="dotnet" tabindex="0" role="button" aria-label=".NET node">
+          <rect x="80" y="350" width="160" height="80" />
+          <text class="node-name" x="100" y="386">.NET</text>
+          <text class="node-role mono" x="100" y="410">CORE ENTERPRISE</text>
+        </g>
+        <g class="node node-core" data-node="core" tabindex="0" role="button" aria-label="Stoic core node">
+          <rect x="412" y="196" width="176" height="128" />
+          <text class="node-name" x="432" y="248">STOIC</text>
+          <text class="node-name" x="432" y="278">CORE</text>
+          <text class="node-role mono" x="432" y="304">ORCHESTRATION</text>
+        </g>
+        <g class="node" data-node="react" tabindex="0" role="button" aria-label="React node">
+          <rect x="760" y="90" width="160" height="80" />
+          <text class="node-name" x="780" y="126">REACT</text>
+          <text class="node-role mono" x="780" y="150">CLIENT SURFACE</text>
+        </g>
+        <g class="node" data-node="angular" tabindex="0" role="button" aria-label="Angular node">
+          <rect x="760" y="350" width="160" height="80" />
+          <text class="node-name" x="780" y="386">ANGULAR</text>
+          <text class="node-role mono" x="780" y="410">CLIENT SURFACE</text>
+        </g>
+        <g class="node node-any" data-node="anystack" tabindex="0" role="button" aria-label="Your stack node">
+          <rect x="424" y="376" width="152" height="68" />
+          <text class="node-name" x="444" y="408">+ YOUR STACK</text>
+          <text class="node-role mono" x="444" y="428">ADAPTERS · GENERATED</text>
+        </g>
+      </svg>
+
+      <div class="eco-readout mono" id="eco-readout">
+        <span class="readout-key">TRACE</span>
+        <span id="readout-text">HOVER OR SELECT A NODE — ONE TOPOLOGY OF MANY. EVERY PIPELINE ROUTES THROUGH THE STOIC CORE, WHATEVER THE STACK.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4 · THE STANDARD — ISO/IEC 27001 ──────────────────── -->
+<section class="standard" id="standard">
+  <div class="shell standard-grid">
+
+    <div class="standard-badge reveal">
+      <p class="kicker mono">SEC.05&nbsp;//&nbsp;THE&nbsp;STANDARD</p>
+      <p class="standard-cert">ISO/IEC<br />27001</p>
+      <p class="standard-cert-label mono">INFORMATION&nbsp;SECURITY&nbsp;MANAGEMENT&nbsp;—&nbsp;CERTIFIED</p>
+    </div>
+
+    <div class="standard-body reveal">
+      <h2>Security is not a feature.<br />It is the substrate.</h2>
+      <p class="section-sub">
+        Stoic operates under an ISO/IEC 27001–certified information
+        security management system. Every engagement inherits it —
+        no exceptions, no tiers, no premium add‑on.
+      </p>
+      <ul class="standard-facts mono">
+        <li>ENCRYPTED&nbsp;CHANNELS&nbsp;·&nbsp;DEFAULT</li>
+        <li>LEAST‑PRIVILEGE&nbsp;ACCESS&nbsp;·&nbsp;ENFORCED</li>
+        <li>AUDIT&nbsp;TRAILS&nbsp;·&nbsp;IMMUTABLE</li>
+        <li>ENTERPRISE&nbsp;&amp;&nbsp;GOVERNMENT&nbsp;DELIVERY</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 5 · CONTACT TERMINAL — THE PROTOCOL ───────────────── -->
+<section class="protocol" id="protocol">
+  <div class="shell protocol-grid">
+
+    <div class="protocol-copy reveal">
+      <p class="kicker mono">SEC.06&nbsp;//&nbsp;THE&nbsp;PROTOCOL</p>
+      <h2>Initiate System<br />Protocol</h2>
+      <p class="section-sub">
+        State your domain and your hardest structural problem.
+        A senior architect responds on a secure channel — no
+        intermediaries, no sales layer.
+      </p>
+      <ul class="protocol-facts mono">
+        <li>RESPONSE&nbsp;WINDOW&nbsp;·&nbsp;&lt;&nbsp;24H</li>
+        <li>CHANNEL&nbsp;·&nbsp;ENCRYPTED</li>
+        <li>SECURITY&nbsp;·&nbsp;ISO/IEC&nbsp;27001</li>
+        <li>NDA&nbsp;·&nbsp;ON&nbsp;REQUEST</li>
+      </ul>
+
+      <div class="architect">
+        <span class="architect-mark" aria-hidden="true">AC</span>
+        <div class="architect-id mono">
+          <span class="architect-name">ALEXANDRU&nbsp;CRUDU</span>
+          <span class="architect-role">FOUNDER&nbsp;·&nbsp;PRINCIPAL&nbsp;ARCHITECT</span>
+          <a class="architect-link" href="https://www.linkedin.com/in/alexandru-crudu-06a683160/" target="_blank" rel="noopener">LINKEDIN&nbsp;↗</a>
+        </div>
+      </div>
+    </div>
+
+    <form class="terminal-form reveal" id="protocol-form" novalidate>
+      <div class="terminal-bar">
+        <span class="tsq" aria-hidden="true"></span>
+        <span class="tsq" aria-hidden="true"></span>
+        <span class="tsq tsq-live" aria-hidden="true"></span>
+        <span class="terminal-title mono">stoic://intake — awaiting input</span>
+      </div>
+      <div class="terminal-form-body">
+        <label class="tf-field">
+          <span class="tf-label mono">$ enterprise.domain</span>
+          <input class="mono" type="text" name="domain" placeholder="acme-industries.com" autocomplete="organization" required />
+        </label>
+        <label class="tf-field">
+          <span class="tf-label mono">$ core.architectural_challenge</span>
+          <textarea class="mono" name="challenge" rows="4" placeholder="Legacy .NET monolith. 14 services. Schema drift across three client apps…" required></textarea>
+        </label>
+        <label class="tf-field">
+          <span class="tf-label mono">$ secure.callback</span>
+          <input class="mono" type="email" name="callback" placeholder="cto@acme-industries.com" autocomplete="email" required />
+        </label>
+        <div class="tf-actions">
+          <button class="btn btn-execute mono" type="submit">EXECUTE&nbsp;▮</button>
+          <span class="tf-status mono" id="form-status" role="status"></span>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <a class="wordmark" href="#top" aria-label="Stoic — back to top">
+        <span class="wordmark-block" aria-hidden="true"></span>
+        STOIC
+      </a>
+      <p class="footer-tag mono">UNYIELDING&nbsp;ARCHITECTURE.<br />ENFORCED&nbsp;BY&nbsp;AI.</p>
+    </div>
+    <div class="footer-col mono">
+      <span class="footer-key">COORDINATES</span>
+      <span>CALEA&nbsp;IEȘILOR&nbsp;6A</span>
+      <span>ARTIMA&nbsp;BUSINESS&nbsp;&amp;&nbsp;LIFESTYLE</span>
+      <span>CHIȘINĂU,&nbsp;MOLDOVA</span>
+    </div>
+    <div class="footer-col mono">
+      <span class="footer-key">CHANNELS</span>
+      <a href="tel:+37369666557">+373&nbsp;69&nbsp;666&nbsp;557</a>
+      <a href="https://www.linkedin.com/in/alexandru-crudu-06a683160/" target="_blank" rel="noopener">LINKEDIN&nbsp;↗</a>
+    </div>
+    <div class="footer-col mono">
+      <span class="footer-key">INDEX</span>
+      <a href="#pillars">PILLARS</a>
+      <a href="#mandate">MANDATE</a>
+      <a href="#ecosystem">ECOSYSTEM</a>
+      <a href="#standard">STANDARD</a>
+      <a href="#protocol">PROTOCOL</a>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div class="shell footer-bar-inner mono">
+      <span>© 2026 STOIC MEDIA SRL · ISO/IEC 27001</span>
+      <span>BUILT TO OUTLAST ITS BUILDERS</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
 </body>
 </html>
